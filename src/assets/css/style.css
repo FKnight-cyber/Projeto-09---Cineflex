@@ -1,0 +1,83 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+}
+
+ul{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+h6{
+    margin-left: 24px;
+    font-size: 20px;
+}
+
+.espaçotopo{
+    height: 66px;
+}
+
+.topo{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #C3CFD9;
+    color: #E8833A;
+    font-size: 34px;
+    font-weight: 400;
+    width: 100%;
+    height: 66px;
+   
+    top: 0;
+}
+
+.sub-topo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 110px;
+    background-color: #ffffff;
+    color: #293845;
+    font-size: 24px;
+}
+
+.movieBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    width: 145px;
+    height: 209px;
+    margin-bottom: 20px;
+}
+
+.movieBox > img{
+    object-fit: cover;
+    width: 128px;
+    height: 192px;
+}
+
+.hourContainer{
+    display: flex;
+    margin-top: 22px;
+    margin-left: 24px;
+}
+
+.hourBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E8833A;
+    color: #ffffff;
+    width: 82px;
+    height: 42px;
+    margin-right: 8px;
+    margin-bottom: 24px;
+}
