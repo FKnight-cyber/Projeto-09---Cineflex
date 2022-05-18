@@ -1,17 +1,22 @@
+import { Link } from "react-router-dom";
+
 export default function Section({sectionInfo}){
 
-    console.log(sectionInfo?.days[0])
     return(
-        sectionInfo.map(item => 
+        sectionInfo.days.map((item, index) => 
             <>
-                <h6>a</h6>
-                <div className="hourContainer">
-                    <div className="hourBox">
-                        <h5>15:00</h5>
-                    </div>
-                    <div className="hourBox">
-                        <h5>19:00</h5>
-                    </div>
+                <h6>{`${item.weekday} - ${item.date}`}</h6>
+                <div key={index} className="hourContainer" >
+                    <Link to={`/assentos/${item.showtimes[0].id}`} style={{ textDecoration: 'none' }} >
+                        <div className="hourBox">
+                            <h5>{`${item.showtimes[0].name}`}</h5>
+                        </div>
+                    </Link>
+                    <Link to={`/assentos/${item.showtimes[1].id}`} style={{ textDecoration: 'none' }} >
+                        <div className="hourBox">
+                            <h5>{`${item.showtimes[1].name}`}</h5>
+                        </div>
+                    </Link>
                 </div>
             </>
                 )
