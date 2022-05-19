@@ -36,7 +36,7 @@ export default function Sections(){
             <div className="espaçofooter"></div>
             <footer>
                 <div className="footerImgBox">
-                    <img src={data.posterURL} alt="" srcset="" />
+                    <img src={data.posterURL} alt="" />
                 </div>
                 <div className="footerTitle">
                     <h4>{data.title}</h4>

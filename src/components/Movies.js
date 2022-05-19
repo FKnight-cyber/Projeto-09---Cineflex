@@ -6,7 +6,7 @@ export default function Movies({postImages}){
         postImages.map((item, index) => 
             <Link to={`/sessoes/${item.id}`} key={index} >
                 <div className="movieBox">
-                    <img src={item.posterURL} alt="" srcset="" />
+                    <img src={item.posterURL} alt="" />
                 </div>
             </Link>
             )
