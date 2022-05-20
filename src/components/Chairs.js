@@ -1,13 +1,29 @@
 import { useEffect,useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import Chair from "./Chair";
 import axios from "axios";
+import styled from "styled-components";
+import Loading from "./Loading";
+
+export let requestData = { }
 
 export default function Chairs(){
+    const navigate = useNavigate();
+
+    const [clickedIndex, setClickedIndex] = useState([]);
     const { idSection } = useParams();
     const [data,setData] = useState(false);
-    const [cpf,setCpf] = useState();
-    const [client,setClient] = useState();
+    const [seatIDs,setSeatIDs] = useState([]);
+    const [cpf,setCpf] = useState('');
+    const [client,setClient] = useState('');
+
+    const chairMethods = {
+        clickedIndex,
+        setClickedIndex,
+        setSeatIDs,
+        seatIDs
+    }
+    
     
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSection}/seats`);
@@ -17,16 +33,36 @@ export default function Chairs(){
         });
     },[]);
 
+    if(!data){
+        return <Loading />;
+    }
+
+    requestData = {
+        title: data.movie.title,
+        weekday: data.day.weekday,
+        date: data.day.date,
+        name: client,
+        cpf: cpf,
+        seats: Object.keys(clickedIndex)
+    }
 
     const getCpf = (e) => {
-    const value = e.target.value.replace(/\D/g, "");
-    if(value.length <= 11){
-        setCpf(value);
-    }
+        const value = e.target.value.replace(/\D/g, "");
+        if(value.length <= 11){
+            setCpf(value);
+        }
     };
 
-    if(!data){
-        return ''
+    function submitRequest(event){
+        event.preventDefault();
+
+        axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",{
+            ids: seatIDs,
+            name: client,
+            cpf: cpf
+        });
+
+        navigate('/sucesso');
     }
 
     return(
@@ -36,7 +72,7 @@ export default function Chairs(){
         </header>
         <content>
             <div className="seats">
-                <Chair chairInfo={data} />
+                <Chair chairInfo={data} chairMethods={chairMethods} />
             </div>
             <div className="statusBar">
                 <div className="subBar">
@@ -52,26 +88,52 @@ export default function Chairs(){
                     <h2>Indisponível</h2>
                 </div>
             </div>
-            <div className="inputBox">
-                <label>Nome do comprador:</label>
-                <input type="text" value={client} placeholder="Informe seu nome..." onChange={e=>setClient(e.target.value)} />
-                <label>CPF do comprador:</label>
-                <input type="text" value={cpf} placeholder="Informe seu cpf..."  onChange={getCpf} />
-            </div>
-            <div className="button">
-                <button>Reservar assento(s)</button>
-            </div>
+            <form onSubmit={submitRequest}>
+                <div className="inputBox">
+                    <label>Nome do comprador:</label>
+                    <input type="text" value={client} placeholder="Informe seu nome..." onChange={e=>setClient(e.target.value)} />
+                    <label>CPF do comprador:</label>
+                    <input type="text" value={cpf} placeholder="Informe seu cpf..."  onChange={getCpf} />
+                </div>
+                    <Button>
+                        <button type="submit">Reservar assento(s)</button>
+                    </Button>
+            </form>
         </content>
         <div className="espaçofooter"></div>
         <footer>
             <div className="footerImgBox">
                 <img src={data.movie.posterURL} alt="" />
             </div>
-            <div className="footerTitle">
+            <FooterTitle>
                 <h4>{data.movie.title}</h4>
                 <h4>{`${data.day.weekday} - ${data.day.date}`}</h4>
-            </div>
+            </FooterTitle>
         </footer>
         </>
     );
 }
+
+export const Button = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 56px;
+margin-bottom: 30px;
+
+    button{
+        border: none;
+        background-color: #E8833A;
+        color: #ffffff;
+        border-radius: 4px;
+        width: 226px;
+        height: 42px;
+    }
+`
+
+const FooterTitle = styled.div`
+    flex-wrap: wrap;
+    height: 40px;
+    font-size: 20px;
+    color: #293845;
+`

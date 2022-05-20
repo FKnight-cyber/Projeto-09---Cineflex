@@ -1,13 +1,19 @@
-import { useState } from "react";
 
-export default function Chair({chairInfo}){
-    const [clickedIndex, setClickedIndex] = useState({});
+export default function Chair({chairInfo,chairMethods}){   
 
-    const handleClick = (index) => () => {
+    const {
+        clickedIndex,
+        setClickedIndex,
+        setSeatIDs,
+        seatIDs
+    } = chairMethods
+    
+    const handleClick = (index,a) => () => {
         setClickedIndex(state => ({
             ...state,
             [index]: !state[index]
         }));
+        setSeatIDs([...seatIDs,a])
     };
 
     function indisponivel(){
@@ -17,7 +23,7 @@ export default function Chair({chairInfo}){
     return(
         chairInfo.seats.map((item,index)=>
             <div key={index} className={`seat ${clickedIndex[index] ? 'selected': null} ${item.isAvailable ? null : 'indisponivel'}`}
-            onClick={item.isAvailable ? handleClick(index) : indisponivel}>
+            onClick={item.isAvailable ? handleClick(index,item.id) : indisponivel}>
                 <h3>{item.name}</h3>
             </div>
         )

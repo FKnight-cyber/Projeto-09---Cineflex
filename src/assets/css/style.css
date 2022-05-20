@@ -191,20 +191,3 @@ input{
     padding-left: 10px;
     font-size: 18px;
 }
-
-.button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 56px;
-    margin-bottom: 30px;
-}
-
-.button > button{
-    border: none;
-    background-color: #E8833A;
-    color: #ffffff;
-    border-radius: 4px;
-    width: 226px;
-    height: 42px;
-}

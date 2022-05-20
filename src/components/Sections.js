@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ReactLoading from 'react-loading';
 import React from "react";
 import axios from "axios";
 import Section from "./Section";
-
-const Example = ({ type, color }) => (
-	<ReactLoading type={type} color={color} height={667} width={375} />
-);
+import Loading from "./Loading";
+import styled from "styled-components";
 
 export default function Sections(){
     const { idFilme } = useParams();
@@ -22,7 +19,7 @@ export default function Sections(){
     },[data.length,idFilme]);
 
     if(!data){
-        return <Example />;
+        return <Loading />;
     }
 
     return(
@@ -38,10 +35,17 @@ export default function Sections(){
                 <div className="footerImgBox">
                     <img src={data.posterURL} alt="" />
                 </div>
-                <div className="footerTitle">
+                <FooterTitle>
                     <h4>{data.title}</h4>
-                </div>
+                </FooterTitle>
             </footer>
         </>
     );
 }
+
+export let FooterTitle = styled.div`
+    flex-wrap: wrap;
+    height: 40px;
+    font-size: 26px;
+    color: #293845;
+`
