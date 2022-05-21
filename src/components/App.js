@@ -1,12 +1,11 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import InitialPage from "./InitialPage";
 import Sections from './Sections';
 import Chairs from "./Chairs";
 import LastPage from "./LastPage";
 
-
 export default function App(){
+
     return(
         <BrowserRouter>
             <header>

@@ -122,31 +122,32 @@ footer{
     height: 72px;
 }
 
-.footerTitle{
-    flex-wrap: wrap;
-    height: 40px;
-    font-size: 26px;
-    color: #293845;
+.content > .seats{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .seats{
     display: flex;
     flex-wrap: wrap;
-    margin-left: 24px;
+    margin-left: 8%;
     margin-right: 24px;
+    width: 86%;
+    height: 27%;
 }
 
 .seat{
     cursor: pointer;
     border: solid 1px #808F9D;
-    font-size: 11px;
+    font-size: calc(100%);
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #C3CFD9;
     color:#000000;
     border-radius: 50%;
-    width: 24px;
+    width: calc(16% - 8%);
     height: 24px;
     margin-right: 6px;
     margin-bottom: 16px;
@@ -175,6 +176,11 @@ footer{
     align-items: center;
 }
 
+.subBar > .seat{
+    width: 24px;
+    height: 24px;
+}
+
 .inputBox{
     margin-left: 24px;
     margin-right: 24px;
@@ -190,4 +196,37 @@ input{
     border: solid 1px #D4D4D4;
     padding-left: 10px;
     font-size: 18px;
+}
+
+@media (min-width:490px){
+    .seat{
+        width: calc(16% - 8%);
+        height: 34px;
+    }
+}
+
+@media (min-width:620px){
+    .seat{
+        width: calc(16% - 7% - 5px);
+        height: 48px;
+    }
+}
+
+@media (min-width:840px){
+    .seat{
+        height: 66px;
+    }
+}
+
+@media (min-width:1000px){
+    .seat{
+        height: 78px;
+    }
+}
+
+@media (min-width:1200px){
+    .seat{
+        width: calc(16% - 7%);
+        height: 108px;
+    }
 }

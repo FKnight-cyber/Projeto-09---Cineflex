@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import Section from "./Section";
@@ -8,6 +8,7 @@ import styled from "styled-components";
 
 export default function Sections(){
     const { idFilme } = useParams();
+    const navigate = useNavigate();
     const [data,setData] = useState(false);
 
     useEffect(() => {
@@ -24,9 +25,10 @@ export default function Sections(){
 
     return(
         <>
-            <header>
+            <Voltar onClick={() => navigate(-1)}>Voltar</Voltar>   
+            <div>
                 <div className="sub-topo">Selecione o horário</div>
-            </header>
+            </div>
             <content>
                 <Section sectionInfo={data} />
             </content>
@@ -43,9 +45,18 @@ export default function Sections(){
     );
 }
 
-export let FooterTitle = styled.div`
+const FooterTitle = styled.div`
     flex-wrap: wrap;
     height: 40px;
     font-size: 26px;
     color: #293845;
+`
+
+export const Voltar = styled.button`
+    position: fixed;
+    top: 40px;
+    background-color: #C3CFD9;
+    color: #E8833A;
+    border: none;
+    font-size: 18px;
 `

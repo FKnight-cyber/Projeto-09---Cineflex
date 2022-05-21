@@ -1,4 +1,3 @@
-
 export default function Chair({chairInfo,chairMethods}){   
 
     const {

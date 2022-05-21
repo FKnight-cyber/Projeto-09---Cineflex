@@ -1,9 +1,11 @@
 import { useEffect,useState } from "react";
 import { useParams,useNavigate } from "react-router-dom";
+import { browserHistory } from 'react-router'
 import Chair from "./Chair";
 import axios from "axios";
 import styled from "styled-components";
 import Loading from "./Loading";
+import { Voltar } from "./Sections";
 
 export let requestData = { }
 
@@ -23,7 +25,6 @@ export default function Chairs(){
         setSeatIDs,
         seatIDs
     }
-    
     
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSection}/seats`);
@@ -67,6 +68,7 @@ export default function Chairs(){
 
     return(
         <>
+        <Voltar onClick={() => navigate(-1)}>Voltar</Voltar> 
         <header>
             <div className="sub-topo">Selecione o(s) assento(s)</div>
         </header>

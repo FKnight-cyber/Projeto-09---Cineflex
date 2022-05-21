@@ -18,6 +18,6 @@ export default function Loading() {
 const Load = styled.div`
     display: flex;
     justify-content: center;
-    align-itens:center;
+    align-items: center;
     margin: 250px auto;
 `
