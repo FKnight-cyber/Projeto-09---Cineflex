@@ -1,11 +1,11 @@
 import { useEffect,useState } from "react";
 import { useParams,useNavigate } from "react-router-dom";
-import { browserHistory } from 'react-router'
 import Chair from "./Chair";
 import axios from "axios";
 import styled from "styled-components";
 import Loading from "./Loading";
 import { Voltar } from "./Sections";
+import FormFields from "./FormFields";
 
 export let requestData = { }
 
@@ -16,8 +16,9 @@ export default function Chairs(){
     const { idSection } = useParams();
     const [data,setData] = useState(false);
     const [seatIDs,setSeatIDs] = useState([]);
-    const [cpf,setCpf] = useState('');
+    const [cpf,setCpf] = useState([]);
     const [client,setClient] = useState('');
+    const [myClients,setMyClients] = useState([]);
 
     const chairMethods = {
         clickedIndex,
@@ -47,21 +48,35 @@ export default function Chairs(){
         seats: Object.keys(clickedIndex)
     }
 
+    let compradores = [];
+
+    for(let i = 0; i < requestData.name.length;i++){
+        compradores[i] = {}
+        compradores[i].idAssento = seatIDs[i]
+        compradores[i].nome = requestData.name[i]
+        compradores[i].cpf = requestData.cpf[i]
+    }
+
     const getCpf = (e) => {
         const value = e.target.value.replace(/\D/g, "");
-        if(value.length <= 11){
-            setCpf(value);
+        if(value.length === 11){
+            setCpf([...cpf, value]);
         }
+    };
+
+    const getClient = (index, e) => {
+        let newClient = [...client]
+        newClient[index] = e.target.value;
+        setClient(newClient);
     };
 
     function submitRequest(event){
         event.preventDefault();
 
-        axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",{
+         axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",{
             ids: seatIDs,
-            name: client,
-            cpf: cpf
-        });
+            compradores: compradores
+        }); 
 
         navigate('/sucesso');
     }
@@ -91,15 +106,11 @@ export default function Chairs(){
                 </div>
             </div>
             <form onSubmit={submitRequest}>
-                <div className="inputBox">
-                    <label>Nome do comprador:</label>
-                    <input type="text" value={client} placeholder="Informe seu nome..." onChange={e=>setClient(e.target.value)} />
-                    <label>CPF do comprador:</label>
-                    <input type="text" value={cpf} placeholder="Informe seu cpf..."  onChange={getCpf} />
-                </div>
-                    <Button>
-                        <button type="submit">Reservar assento(s)</button>
-                    </Button>
+                <FormFields seatIDs={seatIDs} getCpf={getCpf} setClient={setMyClients} client={client}
+                cpf={cpf} data={requestData} getClient={getClient} />
+                <Button>
+                    <button type="submit">Reservar assento(s)</button>
+                </Button>
             </form>
         </content>
         <div className="espaçofooter"></div>

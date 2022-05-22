@@ -4,15 +4,14 @@ import { Link } from "react-router-dom";
 import { Button } from "./Chairs";
 import { requestData } from "./Chairs";
 import ReservedChairs from "./ReservedChairs";
+import Compradores from "./Compradores";
 
 export default function LastPage(){
 
     const {
         title,
         weekday,
-        date,
-        name,
-        cpf,
+        date
     } = requestData;
 
     return(
@@ -32,8 +31,7 @@ export default function LastPage(){
                 </SectionInfo>
                 <SectionInfo>
                     <h1>Comprador</h1>
-                    <h4>{name}</h4>
-                    <h4>CPF: {formataCPF(cpf)}</h4>
+                    <Compradores />
                 </SectionInfo>
                 <Link to={'/'} style={{ textDecoration: 'none' }} >
                 <Button>
@@ -44,11 +42,6 @@ export default function LastPage(){
         </>
     );
 }
-
-function formataCPF(cpf){
-    cpf = cpf.replace(/[^\d]/g, "");
-      return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-  }
 
 const Topo = styled.div`
 display: flex;

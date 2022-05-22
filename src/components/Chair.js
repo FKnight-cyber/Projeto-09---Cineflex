@@ -12,8 +12,25 @@ export default function Chair({chairInfo,chairMethods}){
             ...state,
             [index]: !state[index]
         }));
-        setSeatIDs([...seatIDs,a])
+        if(seatIDs.includes(a)){
+            window.confirm('Você quer cancelar a reserva deste assento?') ? 
+            onConfirm("confirm",a) : onCancel("cancel",index)
+        }else{
+            setSeatIDs([...seatIDs,a]);
+        }
     };
+
+    function onConfirm(check,a){
+        if(check === 'confirm'){
+            seatIDs.splice(seatIDs.indexOf(a),1);
+            setSeatIDs([...seatIDs]);
+        }
+    }
+
+    function onCancel(check,index){
+        clickedIndex[index] = false;
+        return;
+    }
 
     function indisponivel(){
         alert('Esse assento não está disponível!');
