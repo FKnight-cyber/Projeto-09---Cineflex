@@ -18,7 +18,6 @@ export default function Chairs(){
     const [seatIDs,setSeatIDs] = useState([]);
     const [cpf,setCpf] = useState([]);
     const [client,setClient] = useState('');
-    const [myClients,setMyClients] = useState([]);
 
     const chairMethods = {
         clickedIndex,
@@ -73,6 +72,11 @@ export default function Chairs(){
     function submitRequest(event){
         event.preventDefault();
 
+        if(seatIDs.length === 0){
+            alert("Você não reservou nenhum assento!");
+            return;
+        }
+
          axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",{
             ids: seatIDs,
             compradores: compradores
@@ -106,7 +110,7 @@ export default function Chairs(){
                 </div>
             </div>
             <form onSubmit={submitRequest}>
-                <FormFields seatIDs={seatIDs} getCpf={getCpf} setClient={setMyClients} client={client}
+                <FormFields seatIDs={seatIDs} getCpf={getCpf} client={client}
                 cpf={cpf} data={requestData} getClient={getClient} />
                 <Button>
                     <button type="submit">Reservar assento(s)</button>

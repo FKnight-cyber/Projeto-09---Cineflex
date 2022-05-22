@@ -16,11 +16,9 @@ export default function Compradores(){
         arr[i].cpf = cpf[i]
     }
 
-    console.log(arr);
-
     return(
-        arr.map(item => 
-            <Teste>
+        arr.map((item, index)=> 
+            <Teste key={index}>
                 <h4>{item.name}</h4>
                 <h4>CPF: {formataCPF(item.cpf)}</h4>  
             </Teste>     
