@@ -4,7 +4,11 @@ export default function Chair({chairInfo,chairMethods}){
         clickedIndex,
         setClickedIndex,
         setSeatIDs,
-        seatIDs
+        seatIDs,
+        setCpf,
+        cpf,
+        setClient,
+        client
     } = chairMethods
     
     const handleClick = (index,a) => () => {
@@ -14,7 +18,7 @@ export default function Chair({chairInfo,chairMethods}){
         }));
         if(seatIDs.includes(a)){
             window.confirm('Você quer cancelar a reserva deste assento?') ? 
-            onConfirm("confirm",a) : onCancel("cancel",index)
+            onConfirm("confirm",a,index) : onCancel("cancel",index)
         }else{
             setSeatIDs([...seatIDs,a]);
         }
@@ -23,7 +27,11 @@ export default function Chair({chairInfo,chairMethods}){
     function onConfirm(check,a){
         if(check === 'confirm'){
             seatIDs.splice(seatIDs.indexOf(a),1);
+            cpf.splice(cpf.indexOf(a),1);
+            client.splice(client.indexOf(a),1);
             setSeatIDs([...seatIDs]);
+            setCpf([...cpf]);
+            setClient([...client]);
         }
     }
 

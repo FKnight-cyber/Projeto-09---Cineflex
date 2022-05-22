@@ -17,13 +17,17 @@ export default function Chairs(){
     const [data,setData] = useState(false);
     const [seatIDs,setSeatIDs] = useState([]);
     const [cpf,setCpf] = useState([]);
-    const [client,setClient] = useState('');
+    const [client,setClient] = useState(['']);
 
     const chairMethods = {
         clickedIndex,
         setClickedIndex,
         setSeatIDs,
-        seatIDs
+        seatIDs,
+        setCpf,
+        cpf,
+        setClient,
+        client
     }
     
     useEffect(() => {
@@ -38,13 +42,17 @@ export default function Chairs(){
         return <Loading />;
     }
 
+    let result = Object.keys(clickedIndex).filter(function(x) { 
+        return clickedIndex[x] !== false; 
+    });
+
     requestData = {
         title: data.movie.title,
         weekday: data.day.weekday,
         date: data.day.date,
         name: client,
         cpf: cpf,
-        seats: Object.keys(clickedIndex)
+        seats: result
     }
 
     let compradores = [];
@@ -77,10 +85,10 @@ export default function Chairs(){
             return;
         }
 
-         axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",{
+        axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",{
             ids: seatIDs,
             compradores: compradores
-        }); 
+        });
 
         navigate('/sucesso');
     }

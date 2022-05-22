@@ -30,7 +30,7 @@ export default function LastPage(){
                     <ReservedChairs />
                 </SectionInfo>
                 <SectionInfo>
-                    <h1>Comprador</h1>
+                    <h1>Comprador(es)</h1>
                     <Compradores />
                 </SectionInfo>
                 <Link to={'/'} style={{ textDecoration: 'none' }} >
